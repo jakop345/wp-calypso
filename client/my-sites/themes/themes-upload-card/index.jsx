@@ -2,13 +2,13 @@
  * External dependencies
  */
 import React, { PropTypes } from 'react';
+import Gridicon from 'gridicons';
 
 /**
  * Internal dependencies
  */
 import SectionHeader from 'components/section-header';
 import Button from 'components/button';
-import Gridicon from 'components/gridicon';
 import { localize } from 'i18n-calypso';
 import { trackClick } from '../helpers';
 

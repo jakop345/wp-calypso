@@ -3,6 +3,7 @@
  */
 import React, { PropTypes } from 'react';
 import classNames from 'classnames';
+import Gridicon from 'gridicons';
 
 /**
  * Internal dependencies
@@ -10,7 +11,6 @@ import classNames from 'classnames';
 import observe from 'lib/mixins/data-observe';
 import toggle from '../mixin-toggle';
 import Card from 'components/card';
-import Gridicon from 'components/gridicon';
 import StatsModulePlaceholder from '../stats-module/placeholder';
 import StatsModuleContent from '../stats-module/content-text';
 
