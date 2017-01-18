@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import map from 'lodash/map';
+import { map, findLast } from 'lodash';
 
 /**
  * Internal dependencies
@@ -50,4 +50,19 @@ export const isHappychatAvailable = createSelector(
 export const getHappychatTimeline = createSelector(
 	state => state.happychat.timeline,
 	state => map( state.happychat.timeline, 'id' )
+);
+
+/**
+ * Gets the last event in the timeline which does not belong to the specified user.
+ * Used for detecting new messages that weren't sent from the active user.
+ * @param {Object} state - Global redux state
+ * @param {integer} excludeUserId - The user ID to exclude
+ * @return {Object} event - The timeline event
+ */
+export const lastMessageExcludingUser = createSelector(
+	( state, excludeUserId ) => findLast(
+		getHappychatTimeline( state ),
+		m => m.user_id !== excludeUserId
+	),
+	[ getHappychatTimeline ]
 );
