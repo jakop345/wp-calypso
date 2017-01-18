@@ -13,6 +13,9 @@ import viewport from 'lib/viewport';
 import { openChat } from 'state/ui/happychat/actions';
 import Button from 'components/button';
 import Gridicon from 'components/gridicon';
+import Sound from 'components/sound';
+import { getCurrentUserId } from 'state/current-user/selectors';
+import { getLastMessageExcludingUser } from 'state/happychat/selectors';
 
 class HappychatButton extends Component {
 	onOpenChat = () => {
@@ -26,17 +29,27 @@ class HappychatButton extends Component {
 	}
 
 	render() {
-		const { translate } = this.props;
+		const {
+			translate,
+			lastOperatorMessage,
+		} = this.props;
 		return (
 			<Button
 				className="sidebar__footer-chat"
 				borderless
 				onClick={ this.onOpenChat }
 				title={ translate( 'Support Chat' ) }>
+				<Sound src="/calypso/audio/chat-pling.wav" trigger={ lastOperatorMessage } />
 				<Gridicon icon="chat" />
 			</Button>
 		);
 	}
 }
 
-export default connect( null, { onOpenChat: openChat } )( localize( HappychatButton ) );
+const mapState = state => {
+	return {
+		lastOperatorMessage: getLastMessageExcludingUser( state, getCurrentUserId( state ) ),
+	};
+};
+
+export default connect( mapState, { onOpenChat: openChat } )( localize( HappychatButton ) );
